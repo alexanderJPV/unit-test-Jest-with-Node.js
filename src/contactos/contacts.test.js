@@ -37,6 +37,25 @@ describe('contactos', ()=> {
 			expect(() => contactos.incluir(contactoMalo)).toThrow('Formato inválido')
 		});
 	});
+	describe('borrar', () => {
+		beforeEach(() => {
+			contactos.reiniciar();
+			variosContactos.forEach( x => contactos.incluir(x));
+		});
+		test('Debe borrar solo el primer contacto', () => {
+			contactos.borrar(1)
+			const actual = contactos.db()
+			const esperado = [
+				variosContactos[1]
+				,{
+					nombre: 'Yolo',
+					email: 'yolo@gmail.com',
+					id: 3,
+				}
+			];
+			expect(actual).toEqual(esperado)
+		});
+	});
 })
 
 
