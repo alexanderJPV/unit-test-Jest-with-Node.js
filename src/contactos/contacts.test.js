@@ -25,15 +25,17 @@ describe('contactos', ()=> {
 			// lo que tenemos
 			const actual = contactos.db()
 			// lo que esperamos
+			// Funcion de iguala toEquals
 			const esperado = [contacto]
 			expect(actual).toEqual(esperado)
 		});
 		test('Debe mostrar un error si no contiene los props {name, email, id}', () => {
-			const contacto = {
+			const contactoMalo = {
 				nombre: 'Steven',
-				email: 'ray@gmail.com'
-			}
-		})
+				email: 'ray@gmail.com',
+			};
+			expect(() => contactos.incluir(contactoMalo)).toThrow('Formato inválido')
+		});
 	});
 })
 
