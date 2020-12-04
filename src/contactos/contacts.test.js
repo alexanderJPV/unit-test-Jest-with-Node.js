@@ -44,7 +44,9 @@ describe('contactos', ()=> {
 		});
 		test('Debe borrar solo el primer contacto', () => {
 			contactos.borrar(1)
+			// array actual con el primer elemento borrado
 			const actual = contactos.db()
+			// array q se espera
 			const esperado = [
 				variosContactos[1]
 				,{
@@ -54,6 +56,36 @@ describe('contactos', ()=> {
 				}
 			];
 			expect(actual).toEqual(esperado)
+		});
+		test('No debe borrar ningun contacto si el id no se encontro', () => {
+			// probamos el id=100 que no existe
+			contactos.borrar(100)
+			const actual = contactos.db()
+			const esperado = variosContactos
+			expect(actual).toEqual(esperado)
+		});
+	});
+	describe('reiniciar', () => {
+		test('Probando el reiniciado del array contactos', () => {
+			contactos.reiniciar()
+			const actual = contactos.db()
+			const esperado = []
+			expect(actual).toEqual(esperado)
+		});
+	});
+	describe('starwars', () => {
+		test('Debe contener personajes de starwars', (done) => {
+			const url = 'https://jsonplaceholder.typicode.com/photos'
+			contactos.starwars(url).then(count => {
+					expect(count).toBeGreaterThan(0)
+					done();
+			});
+		});
+		test('Si la URL es incorrecta no da error', async () => {
+			const url = 'https://jsonplaceholder.typicode.com/photos'
+			const actual = contactos.starwars(url)
+			await expect(actual).resolves.toEqual(5000)
+			// await expect(actual).rejects.toEqual(Erro('xxxxxxxxxxxxxxxxx'));
 		});
 	});
 })

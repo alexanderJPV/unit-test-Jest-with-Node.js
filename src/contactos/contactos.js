@@ -1,4 +1,4 @@
-import axios from 'axios';
+ import axios from 'axios';
 
 let contactos = [];
 
@@ -35,11 +35,13 @@ export default {
 		];
 	},
 	starwars(url) {
-		// https://swapi.co/
-		// http://swapi.co/api/people
+		// https://jsonplaceholder.typicode.com/photos
 		return axios.get(url)
 			.then(({ data }) => {
-				return data.count;
+				return data.length;
 			})
 	},
+	holaMundo(){
+		return 'hola'
+	}
 }
